@@ -44,7 +44,7 @@ cargo +nightly-2020-08-23 build --release
   ```bash
   cd chain
   # Launch the node in development mode and do not persist chain state
-  ./target/release/enterprise-sample --dev --tmp
+  ./target/release/chainfresh --dev --tmp
   ```
 
 - Launch the [frontend](sys-src/solochain/frontend) to interact with the blockchain via web GUI.
