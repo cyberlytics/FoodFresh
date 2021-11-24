@@ -1,8 +1,26 @@
-# ChainFresh
+<div align="center">
+
+![account selector](sys-doc/assets/chainfresh.png)
+<br />
+[![License](https://img.shields.io/github/license/cyberlytics/ChainFresh?color=green)](https://github.com/cyberlytics/ChainFresh/blob/main/LICENSE)
+[![Substrate version](https://img.shields.io/badge/Substrate-2.0.0-brightgreen?logo=Parity%20Substrate)](https://substrate.io/)
+
+</div>
+
+- [1. Introduction](#1-introduction)
+- [2. Prerequesites](#2-prerequesites)
+- [3. Run](#3-run)
+  - [3.1. Solochain](#31-solochain)
+  - [3.2. Multichain](#32-multichain)
+- [4. Test](#4-test)
+
+# 1. Introduction
 
 ChainFresh is a decentralized supply chain consortium.
 
-## Prerequesites
+__Note__: This section is still work in progress. More information will follow.
+
+# 2. Prerequesites
 
 The following section outlines the software requirements and their intended use.
 
@@ -20,7 +38,18 @@ The following section outlines the software requirements and their intended use.
 
 - [Python](https://www.python.org/) - Scripts for blockchain interaction.
 
-## Solochain setup
+
+# 3. Run
+
+Install Rust:
+
+```bash
+curl https://sh.rustup.rs -sSf | sh
+```
+
+You may need additional dependencies, checkout [substrate.io](https://docs.substrate.io/v3/getting-started/installation) for more info.
+
+# 3.1. Solochain
 
 This project utilzes a [Rust toolchain](https://substrate.dev/docs/en/knowledgebase/getting-started/#rust-nightly-toolchain)
 for Wasm compilation. Ensure that these commands are executed as part of the installation process:
@@ -61,12 +90,18 @@ cargo +nightly-2020-08-23 build --release
   pip install -r requirements.txt
   python init.py
   ```
+  
+# 3.2 Multichain
 
-## Multichain setup
+__Note__: Compiling this project is a resource intensive process! Use a machine with no less than:
 
-TODO
+- 8 GB of RAM (16 GB is suggested)
+- 4 CPU cores (8 cores are suggested)
+- 50 GB of free HDD/SSD space
 
-## Commands
+Without the minimal RAM here, you are likely run out of memory resulting in a `SIGKILL` error during the compilation process.
+
+# 4. Test
 
 For both subprojects the following commands are available:
 
