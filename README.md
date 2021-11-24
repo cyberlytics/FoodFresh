@@ -1,7 +1,9 @@
 <div align="center">
 
-![account selector](sys-doc/assets/chainfresh.png)
+<img src="sys-doc/assets/chainfresh.png" width="460">
+
 <br />
+
 [![License](https://img.shields.io/github/license/cyberlytics/ChainFresh?color=green)](https://github.com/cyberlytics/ChainFresh/blob/main/LICENSE)
 [![Substrate version](https://img.shields.io/badge/Substrate-2.0.0-brightgreen?logo=Parity%20Substrate)](https://substrate.io/)
 
@@ -63,7 +65,7 @@ cargo +nightly-2020-08-23 build --release
 - Run the [Off-Chain Worker (OCW) listener](sys-src/solochain/scripts/ocw) to receive OCW notifications.
 
   ```bash
-  cd scripts/ocw
+  cd sys-src/solochain/scripts/ocw
   pip install -r requirements.txt
   python ocw.py [--host=localhost --port=3005]
   ```
