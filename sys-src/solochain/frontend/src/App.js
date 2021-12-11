@@ -5,13 +5,13 @@ import {
   Route
 } from 'react-router-dom';
 
-import Dashboard from './views/Dashboard';
-import Organization from './views/Organization'
-import Member from './views/Member'
-import Tracking from './views/Tracking'
-import Shipment from './views/Shipment'
-import Product from './views/Product'
-import Document from './views/Document'
+import Dashboard from './views/dashboard';
+import Document from './views/document'
+import Organization from './views/organization'
+import Member from './views/member'
+import Trace from './views/trace'
+import Shipment from './views/shipment'
+import Product from './views/product'
 import './index.scss';
 
 export default function App () {
@@ -20,7 +20,7 @@ export default function App () {
       <Switch>
         <Route path="/dashboard/organization" component={Organization}/>
         <Route path="/dashboard/member" component={Member}/>
-        <Route path="/dashboard/trace" component={Tracking}/>
+        <Route path="/dashboard/trace" component={Trace}/>
         <Route path="/dashboard/shipment" component={Shipment}/>
         <Route path="/dashboard/product" component={Product}/>
         <Route path="/dashboard/document" component={Document}/>

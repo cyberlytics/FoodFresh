@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
-import AccountSelector from './AccountSelector';
-import { black, white } from '@carbon/colors';
 import {
   Header,
   HeaderName,
   HeaderNavigation,
   HeaderMenuItem,
 } from 'carbon-components-react';
+import { black, white } from '@carbon/colors';
+import AccountSelector from './AccountSelector';
 
 
 export default class NavMenu extends Component {
@@ -23,20 +23,20 @@ export default class NavMenu extends Component {
       activeItem = window.location.pathname
     }
     return (
-      <Header style={{ backgroundColor : white, borderBottom : '1px solid #d1d1d1', position: 'relative' }}>
-        <HeaderName prefix='' style={{ color : black }}>
+      <Header style={{ backgroundColor: white, borderBottom: '1px solid #d1d1d1', position: 'relative' }}>
+        <HeaderName prefix='' style={{ color: black }}>
           ChainFresh
         </HeaderName>
         <HeaderNavigation aria-label="Carbon Tutorial">
           <HeaderMenuItem
             className={activeItem.includes('/dashboard') ? 'active' : '' }
-            style={{ color : black }}
+            style={{ color: black }}
             href="/"
           >
             Dashboard
           </HeaderMenuItem>
           <HeaderMenuItem
-            style={{ color : black }}
+            style={{ color: black }}
             target='_blank'
             href="https://polkadot.js.org/apps/#/explorer?rpc=ws://127.0.0.1:9944"
           >
