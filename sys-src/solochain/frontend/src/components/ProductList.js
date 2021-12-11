@@ -1,17 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Message } from 'semantic-ui-react';
+import { Tile } from 'carbon-components-react';
 import { u8aToString } from '@polkadot/util';
 import { useSubstrate } from '../substrate-lib';
-import {
-  DataTable,
-  TableBody,
-  Table,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow
-} from "carbon-components-react";
-import { white } from "@carbon/colors";
+import ListTable from './ListTable';
+import ListWarning from './ListWarning';
+
 
 export default function Main (props) {
   const { organization } = props;
@@ -39,13 +32,6 @@ export default function Main (props) {
     return () => unsub && unsub();
   }, [organization, api, setProducts]);
 
-  if (!products || products.length === 0) {
-    return <Message warning style={{borderRadius: 0}}>
-      <Message.Header>No product registered for your organisation.</Message.Header>
-      <p>Register a product using the form on the left.</p>
-    </Message>;
-  }
-
   const rows = products.map(product => {
     const props = product.props.unwrap();
     return {
@@ -62,7 +48,7 @@ export default function Main (props) {
     },
     {
       key: 'owner',
-      header: 'Organization',
+      header: 'Owner',
     },
     {
       key: 'description',
@@ -70,30 +56,18 @@ export default function Main (props) {
     },
   ];
 
+  const hasProducts = () => !products || products.length === 0;
+
   return (
-    <DataTable rows={rows} headers={headers} isSortable>
-      {({ rows, headers, getTableProps, getHeaderProps, getRowProps }) => (
-        <Table {...getTableProps()}>
-          <TableHead>
-            <TableRow>
-              {headers.map((header) => (
-                <TableHeader {...getHeaderProps({ header })}>
-                  {header.header}
-                </TableHeader>
-              ))}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows.map((row) => (
-              <TableRow {...getRowProps({ row })}>
-                {row.cells.map((cell) => (
-                  <TableCell key={cell.id} style={{ backgroundColor: white }}>{cell.value}</TableCell>
-                ))}
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      )}
-    </DataTable>
+    <Tile style={{ padding: 0, backgroundColor: "white" }}>
+      <div className="tile-header">
+        Products table
+      </div>
+      {
+        hasProducts() ?
+          <ListWarning message={"No products to show here."}/> :
+          <ListTable rows={rows} headers={headers}/>
+      }
+    </Tile>
   );
 }

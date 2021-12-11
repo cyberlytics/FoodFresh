@@ -23,10 +23,10 @@ export default function RegisterProductForm(props) {
   return (
     <Form>
       <Tile className="white-tile">
-        <div className="card-header">
+        <div className="tile-header">
           Register product
         </div>
-        <div className="card-content">
+        <div className="tile-content">
           <TextInput
             id="productID"
             labelText="Product identification number"

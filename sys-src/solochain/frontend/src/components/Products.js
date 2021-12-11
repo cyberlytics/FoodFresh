@@ -4,8 +4,9 @@ import OrganizationSelector from './OrganizationSelector';
 import ProductList from './ProductList';
 import RegisterProductForm from './RegisterProductForm';
 
+
 export default function Main(props) {
-  const {accountPair} = props;
+  const { accountPair } = props;
   const [selectedOrganization, setSelectedOrganization] = useState('');
 
   return (
@@ -15,7 +16,7 @@ export default function Main(props) {
           Products
         </div>
         <div className="view-description">
-          Manage products here.
+          With the Product module, you can register your trade items.
         </div>
       </Tile>
       <br/><br/>
@@ -27,16 +28,13 @@ export default function Main(props) {
           />
           <br/>
           <RegisterProductForm accountPair={accountPair}
-                               organization={selectedOrganization}/>
+                               organization={selectedOrganization}
+          />
         </Column>
         <Column sm={2} md={4} lg={6}>
-          <Tile style={{padding: 0, backgroundColor: "white"}}>
-            <div className="card-header">
-              Product list
-            </div>
-          </Tile>
           <ProductList accountPair={accountPair}
-                       organization={selectedOrganization}/>
+                       organization={selectedOrganization}
+          />
         </Column>
       </Row>
     </div>
