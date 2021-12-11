@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useSubstrate } from '../substrate-lib';
 
-function Main(props) {
+function Main() {
   const {api} = useSubstrate();
-  const [nodeInfo, setNodeInfo] = useState({});
+  const [setNodeInfo] = useState({});
 
   useEffect(() => {
     const getInfo = async () => {
@@ -23,10 +23,10 @@ function Main(props) {
 
   return (
     <div>
-      <div className="org-header border-bottom">
+      <div className="chaininfo-header border-bottom">
         Blockchain mode
       </div>
-      <div className="org-content">
+      <div className="chaininfo-content">
         Solochain
       </div>
     </div>

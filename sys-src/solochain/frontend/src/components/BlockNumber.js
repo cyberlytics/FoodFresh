@@ -1,40 +1,24 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useSubstrate } from '../substrate-lib';
+import { useBestBlockNumber } from "../hooks";
 
 function Main (props) {
   const { api } = useSubstrate();
   const { finalized } = props;
-  const [blockNumber, setBlockNumber] = useState(0);
-
-  const bestNumber = finalized
-    ? api.derive.chain.bestNumberFinalized
-    : api.derive.chain.bestNumber;
-
-  useEffect(() => {
-    let unsubscribeAll = null;
-
-    bestNumber(number => {
-      setBlockNumber(number.toNumber());
-    }).then(unsub => {
-        unsubscribeAll = unsub;
-      })
-      .catch(console.error);
-
-    return () => unsubscribeAll && unsubscribeAll();
-  }, [bestNumber]);
+  const [blockNumber] = useBestBlockNumber(api, finalized);
 
   return (
     <div>
       {finalized?
-        <div className="org-header border-bottom">
+        <div className="chaininfo-header border-bottom">
           Finalized block
         </div>
         :
-        <div className="org-header border-bottom">
+        <div className="chaininfo-header border-bottom">
           Current block
         </div>
       }
-      <div className="org-content">
+      <div className="chaininfo-content">
         {blockNumber}
       </div>
     </div>
