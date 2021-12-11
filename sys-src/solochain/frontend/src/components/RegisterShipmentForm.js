@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import { Tile, Dropdown, TextInput, Form } from 'carbon-components-react';
 import { useSubstrate } from '../substrate-lib';
 import { TxButton } from '../substrate-lib/components';
 import { hexToString } from '@polkadot/util';
 
-import { Tile, Dropdown, TextInput, Form } from 'carbon-components-react';
 
 function RegisterShipmentFormComponent (props) {
   const { api } = useSubstrate();
@@ -74,11 +74,12 @@ function RegisterShipmentFormComponent (props) {
 
 return <Form>
   <Tile className="card" style={{ maxWidth: '100%' }}>
-    <div className="card-header">
+    <div className="tile-header">
       Register shipment
     </div>
-    <div className="card-content">
+    <div className="tile-content">
       <TextInput
+        id="shipmentId"
         labelText="Shipment identification number"
         placeholder="Enter shipment id"
         type='text'
@@ -88,6 +89,7 @@ return <Form>
       />
       <br/>
       <TextInput
+        id="receiver"
         labelText="Receiver"
         placeholder="Enter a receiver"
         type='text'

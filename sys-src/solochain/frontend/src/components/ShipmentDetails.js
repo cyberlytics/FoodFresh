@@ -1,32 +1,44 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Header, Icon, Grid, List, Step, Segment } from 'semantic-ui-react';
+import { Step } from 'semantic-ui-react';
+import 'semantic-ui-css/semantic.min.css';
+import {
+  Row,
+  Column,
+  Tile,
+} from 'carbon-components-react';
+import {
+  Delivery32,
+  Task32,
+  Scan32,
+  Home32
+} from '@carbon/icons-react';
 import { useSubstrate } from '../substrate-lib';
-import { hexToString, u8aToString } from '@polkadot/util';
-
+import { u8aToString } from '@polkadot/util';
 import ShipmentOperations from './ShipmentOperations';
 
-function ShipmentDetailsComponent (props) {
-  const { api } = useSubstrate();
+
+function ShipmentDetailsComponent(props) {
+  const {api} = useSubstrate();
   const [shipment, setShipment] = useState(null);
   const [eventIndices, setEventIndices] = useState([]);
   const [events, setEvents] = useState([]);
   const [products, setProducts] = useState([]);
-  const { accountPair, shipmentId } = props;
+  const {accountPair, shipmentId} = props;
 
   useEffect(() => {
     let unsubscribe;
 
-    async function shipment (shipmentId) {
+    async function shipment(shipmentId) {
       await api.query.productTracking.shipments(shipmentId, async data => {
-        if (!data || !data.value || !data.value.owner) {
-          return;
-        }
+          if (!data || !data.value || !data.value.owner) {
+            return;
+          }
 
-        const nonce = await api.query.palletDid.attributeNonce([data.value.owner, 'Org']);
-        const attrHash = api.registry.createType('(AccountId, Text, u64)', [data.value.owner, 'Org', nonce.subn(1)]).hash;
-        const orgAttr = await api.query.palletDid.attributeOf([data.value.owner, attrHash]);
-        setShipment({ ...data.value, owner: u8aToString(orgAttr.value) });
-      }
+          const nonce = await api.query.palletDid.attributeNonce([data.value.owner, 'Org']);
+          const attrHash = api.registry.createType('(AccountId, Text, u64)', [data.value.owner, 'Org', nonce.subn(1)]).hash;
+          const orgAttr = await api.query.palletDid.attributeOf([data.value.owner, attrHash]);
+          setShipment({...data.value, owner: u8aToString(orgAttr.value)});
+        }
       );
     }
 
@@ -41,7 +53,7 @@ function ShipmentDetailsComponent (props) {
   useEffect(() => {
     let unsubscribe;
 
-    async function eventsOfShipment (shipmentId) {
+    async function eventsOfShipment(shipmentId) {
       await api.query.productTracking.eventsOfShipment(shipmentId, data =>
         setEventIndices(data ? data.map(x => x.toNumber()) : [])
       );
@@ -58,7 +70,7 @@ function ShipmentDetailsComponent (props) {
   useEffect(() => {
     let unsubscribe;
 
-    async function allEvents (eventIndices) {
+    async function allEvents(eventIndices) {
       const futures = eventIndices
         .map(idx => api.query.productTracking.allEvents(idx));
       Promise.all(futures)
@@ -92,15 +104,17 @@ function ShipmentDetailsComponent (props) {
       Promise.all(futures)
         .then(data => {
           if (data) {
-            const products = data.map(p => {
-              const product = p.value;
-              const descProp = product.props ? product.props.value.find(prop => hexToString(prop.name.toString()) === 'desc') : { name: '', value: '' };
+            const validProducts = data
+              .filter(product => !product.isNone)
+              .map(product => product.unwrap())
+              .map(product => {
+              const props = product.props.unwrap();
               return {
-                id: hexToString(product.id.toString()),
-                desc: hexToString(descProp.value.toString())
+                id: u8aToString(product.id),
+                desc: u8aToString(props[0].value)
               };
-            });
-            setProducts(products);
+            })
+            setProducts(validProducts);
           } else {
             setProducts([]);
           }
@@ -118,80 +132,89 @@ function ShipmentDetailsComponent (props) {
 
   return (
     shipment != null
-      ? <Container>
-        <Header as="h4">Shipment {shipmentId}</Header>
-        <Segment>
-          <Grid columns="2" rows="2">
-            <Grid.Row>
-              <Grid.Column>
-                <Header as="h4" floated="left">Owner: </Header>
-                <span style={{ fontSize: '0.8em' }}>{shipment.owner.toString()}</span>
-              </Grid.Column>
-              <Grid.Column>
-                <Header as="h4" floated="left">Registered:</Header>
-                <span>{new Date(shipment.registered.toNumber()).toLocaleString()}</span>
-              </Grid.Column>
-            </Grid.Row>
-            <Grid.Row>
-              <Grid.Column>
-                <Header as="h4" floated="left">Status: </Header>
-                <span>{shipment.status.toString()}</span>
-              </Grid.Column>
-              <Grid.Column>
-                <Header as="h4" floated="left">Delivered:</Header>
-                <span>{ shipment.delivered.value.toString().length > 0
-                  ? new Date(shipment.delivered.value.toNumber()).toLocaleString() : ''
-                }</span>
-              </Grid.Column>
-            </Grid.Row>
-          </Grid>
-        </Segment>
-        <Grid container columns={3} style={{ marginTop: '1em' }}>
-          <Grid.Column width={6}>
-            <Header as="h3">Shipping Events</Header>
-            { events
-              ? <Step.Group vertical size='small'> { events.map((event, idx) => {
-                const eventType = event.event_type.toString();
-                return (
-                  <Step key={idx}>
-                    <Icon name={ eventType === 'ShipmentRegistration'
-                      ? 'tasks'
-                      : eventType === 'ShipmentPickup'
-                        ? 'truck'
-                        : eventType === 'ShipmentScan'
-                          ? 'barcode' : 'home'
-                    } />
-                    <Step.Content>
-                      <Step.Title>{event.event_type.toString().substring(8)}</Step.Title>
-                      <Step.Description>
-                        { new Date(event.timestamp.toNumber()).toLocaleString() }
-                      </Step.Description>
-                    </Step.Content>
-                  </Step>
-                );
-              })} </Step.Group>
-              : <div>No event found</div>
-            }
-          </Grid.Column>
-          <Grid.Column width={6}>
-            <Header as="h3">Products</Header>
-            { products
-              ? <List> { products.map((product, idx) =>
-                <List.Item key={idx} header={product.id} description={product.desc} />
-              ) } </List>
-              : <div>No product found</div>
-            }
-          </Grid.Column>
-          <Grid.Column width={4}>
-            <Header as="h3">Shipping Operations</Header>
-            <ShipmentOperations accountPair={accountPair} shipment={shipment} />
-          </Grid.Column>
-        </Grid>
-      </Container> : <div></div>
+      ? <Tile light>
+        <div className="tile-content">
+          <Row>
+            <Column>
+              <div className="shipping-header">Events</div>
+              {events
+                ? <Step.Group vertical size='small' style={{borderColor: "#fff", marginTop: 0}}>
+                  {events.map((event, idx) => {
+                      const eventType = event.event_type.toString();
+                      return (
+                        <Step key={idx} style={{borderColor: "#fff", padding: 0, marginBottom: '16px'}}>
+                          {eventType === 'ShipmentRegistration'
+                            ? <Task32/>
+                            : eventType === 'ShipmentPickup'
+                              ? <Delivery32/>
+                              : eventType === 'ShipmentScan'
+                                ? <Scan32/> : <Home32/>
+                          }
+                          <Step.Content style={{paddingLeft: "8px"}}>
+                            <Step.Title
+                              style={{fontSize: "14px"}}
+                            >
+                              {event.event_type.toString().substring(8)}
+                            </Step.Title>
+                            <Step.Description>
+                              {new Date(event.timestamp.toNumber()).toLocaleString()}
+                            </Step.Description>
+                          </Step.Content>
+                        </Step>
+                      );
+                    })} </Step.Group>
+                : <p>No event found</p>
+              }
+            </Column>
+            <Column>
+              <div className="shipping-header">Details</div>
+              <div>
+                <div style={{paddingBottom: "16px"}}>
+                  <div className="shipping-title">Owner:</div>
+                  <p>{shipment.owner.toString()}</p>
+                </div>
+                <div style={{paddingBottom: "16px"}}>
+                  <div className="shipping-title">Registered:</div>
+                  <p>{new Date(shipment.registered.toNumber()).toLocaleString()}</p>
+                </div>
+                <div style={{paddingBottom: "16px"}}>
+                  <div className="shipping-title">Status:</div>
+                  <p>{shipment.status.toString()}</p>
+                </div>
+                <div style={{paddingBottom: "16px"}}>
+                  <div className="shipping-title">Delivered:</div>
+                  <p>{shipment.delivered.value.toString().length > 0
+                    ? new Date(shipment.delivered.value.toNumber()).toLocaleString() : ''
+                  }</p>
+                </div>
+              </div>
+            </Column>
+            <Column>
+              <div className="shipping-header">Products</div>
+              <div>
+                {products
+                  ? <div> {
+                    products.map((product) =>
+                      <div style={{paddingBottom: "16px"}}>
+                        <div className="shipping-title">{product.id}</div>
+                        <p>{product.desc}</p>
+                      </div>
+                    )}</div>
+                  : <div>No product found</div>
+                }
+              </div>
+            </Column>
+            <Column>
+              <div className="shipping-header">Operations</div>
+              <ShipmentOperations accountPair={accountPair} shipment={shipment}/>
+            </Column>
+          </Row>
+        </div>
+      </Tile> : <div/>
   );
 }
 
-export default function ShipmentDetails (props) {
+export default function ShipmentDetails(props) {
   const { api } = useSubstrate();
   return api ? <ShipmentDetailsComponent {...props} /> : null;
 }

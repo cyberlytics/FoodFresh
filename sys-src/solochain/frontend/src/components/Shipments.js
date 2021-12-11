@@ -1,13 +1,18 @@
 import React, { useState } from 'react';
-
+import { Row, Column, Tile } from 'carbon-components-react';
 import OrganizationSelector from './OrganizationSelector';
 import RegisterShipmentForm from './RegisterShipmentForm';
 import ShipmentList from './ShipmentList';
 
-import { Row, Column, Tile } from 'carbon-components-react';
-
+/**
+ * Shipments
+ * Provides the layout with components of the shipments view.
+ *
+ * @param props
+ * @returns {JSX.Element}
+ */
 export default function Main(props) {
-  const {accountPair} = props;
+  const { accountPair } = props;
   const [selectedOrganization, setSelectedOrganization] = useState('');
 
   return (
@@ -17,11 +22,11 @@ export default function Main(props) {
           Shipments
         </div>
         <div className="view-description">
-          Manage shipments here.
+          With the Shipment module, you can register shipments for your products.
         </div>
       </Tile>
-      <br/>
-      <Row style={{marginTop: '10px'}}>
+      <br/><br/>
+      <Row>
         <Column sm={2} md={4} lg={6}>
           <OrganizationSelector
             accountPair={accountPair}
@@ -29,16 +34,13 @@ export default function Main(props) {
           />
           <br/>
           <RegisterShipmentForm accountPair={accountPair}
-                                organization={selectedOrganization}/>
+                                organization={selectedOrganization}
+          />
         </Column>
         <Column sm={2} md={4} lg={6}>
-          <Tile className="white-tile">
-            <div className="card-header">
-              Shipments list
-            </div>
-          </Tile>
           <ShipmentList accountPair={accountPair}
-                        organization={selectedOrganization}/>
+                        organization={selectedOrganization}
+          />
         </Column>
       </Row>
     </div>
