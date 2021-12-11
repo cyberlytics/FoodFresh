@@ -1,6 +1,5 @@
 import React from 'react';
 import { Row, Column, Tile } from 'carbon-components-react';
-
 import AddToOrg from './AddToOrganization';
 import CreateOrg from './CreateOrganization';
 
@@ -13,12 +12,10 @@ export default function Main (props) {
         Organizations
       </div>
       <div className="view-description">
-        Manage participating organisations.
+        With the Organization module, you can manage your organizations.
       </div>
     </Tile>
-
     <br/><br/>
-
     <Row>
       <Column sm={2} md={4} lg={6}>
         <CreateOrg accountPair={accountPair} />

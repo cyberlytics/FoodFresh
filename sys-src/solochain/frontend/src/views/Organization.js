@@ -1,6 +1,5 @@
 import React, { useState, createRef } from 'react';
-import { Dimmer, Loader } from 'semantic-ui-react';
-import { Grid } from 'carbon-components-react';
+import { Grid, Loading } from 'carbon-components-react';
 import { SubstrateContextProvider, useSubstrate } from '../substrate-lib';
 import { DeveloperConsole } from '../substrate-lib/components';
 import { Organizations, TopNavMenu } from '../components';
@@ -10,20 +9,12 @@ import DefaultSkeleton from "./skeletons/DefaultSkeleton";
 const Organization = () => {
   const { apiState, keyring, keyringState } = useSubstrate();
   const [accountAddress, setAccountAddress] = useState(null);
-  const loader = text =>
-    <Dimmer active>
-      <Loader size='small'>{text}</Loader>
-    </Dimmer>;
 
   if (apiState === 'ERROR') {
     return <DefaultSkeleton toast={{title: "Error", caption: "Please make sure the blockchain is running."}}/>
   }
-  else if (apiState !== 'READY') {
-    return loader('Connecting to blockchain...');
-  }
-
-  if (keyringState !== 'READY') {
-    return loader('Loading accounts...');
+  else if (apiState !== 'READY' || keyringState !== 'READY') {
+    return <Loading description="Loading" withOverlay={true}/>
   }
 
   const getAddress = (accountAddress) => {
