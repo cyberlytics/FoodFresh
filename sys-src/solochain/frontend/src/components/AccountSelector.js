@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Dropdown } from 'carbon-components-react';
 import { useSubstrate } from '../substrate-lib';
+import { useInitialAddress } from "../hooks";
 
 function Main (props) {
   const { keyring } = useSubstrate();
@@ -11,14 +12,13 @@ function Main (props) {
     text: account.meta.name.toUpperCase(),
   }));
 
-  let initialAddress = null;
-  let initialItem = {};
+  // Set initially selected account
+  let initialAddress, initialItem;
   if (localStorage.getItem('initialAddress') == null) {
     initialAddress = keyringOptions.length > 0 ? keyringOptions[0].id : '';
     initialItem = keyringOptions.length > 0 ? keyringOptions[0] : {};
     localStorage.setItem('initialAddress', initialAddress);
     localStorage.setItem('initialItem', JSON.stringify(initialItem));
-    
   } else {
     initialAddress = localStorage.getItem('initialAddress');
     initialItem = JSON.parse(localStorage.getItem('initialItem'));
@@ -26,10 +26,7 @@ function Main (props) {
   const [accountSelected, setAccountSelected] = useState(initialAddress);
   const [currentOption, setCurrentOptionSelected] = useState(initialItem);
 
-  // Set the initial address
-  useEffect(() => {
-    props.sendAddressData(initialAddress);
-  }, [initialAddress]);
+  useInitialAddress(props, initialAddress)
 
   const onChange = (event) => {
     localStorage.setItem('initialAddress', event.selectedItem.id);
@@ -52,7 +49,8 @@ function Main (props) {
             Polkadot JS Extension
           </a>
         </span>
-        : null }
+        : null
+      }
       <Dropdown
         id="inline"
         type="inline"
