@@ -1,36 +1,20 @@
 import React, { useState, createRef } from 'react';
-import { Dimmer, Loader, Message } from 'semantic-ui-react';
-import 'semantic-ui-css/semantic.min.css';
-
 import { SubstrateContextProvider, useSubstrate } from '../substrate-lib';
 import { DeveloperConsole } from '../substrate-lib/components';
 import { Documents, TopNavMenu } from '../components';
-import { Grid } from 'carbon-components-react';
+import { Grid, Loading } from 'carbon-components-react';
+import DefaultSkeleton from "./skeletons/DefaultSkeleton";
 
 
-const Document = (props) => {
-  const { apiState, keyring, keyringState, apiError } = useSubstrate();
+const Document = () => {
+  const { apiState, keyring, keyringState } = useSubstrate();
   const [accountAddress, setAccountAddress] = useState(null);
-  const loader = text =>
-    <Dimmer active>
-      <Loader size='small'>{text}</Loader>
-    </Dimmer>;
 
-  const message = err =>
-    <Grid centered columns={2} padded>
-      <Grid.Column>
-        <Message negative compact floating
-                 header='Error connecting to blockchain'
-                 content={`${err}`}
-        />
-      </Grid.Column>
-    </Grid>;
-
-  if (apiState === 'ERROR') return message(apiError);
-  else if (apiState !== 'READY') return loader('Connecting to Substrate');
-
-  if (keyringState !== 'READY') {
-    return loader('Loading accounts');
+  if (apiState === 'ERROR') {
+    return <DefaultSkeleton toast={{title: "Error", caption: "Please make sure the blockchain is running."}}/>
+  }
+  else if (apiState !== 'READY' || keyringState !== 'READY') {
+    return <Loading description="Loading" withOverlay={true}/>
   }
 
   const getAddress = (accountAddress) => {

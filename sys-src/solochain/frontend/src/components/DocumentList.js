@@ -1,93 +1,53 @@
-import React, { useEffect, useState } from 'react';
-import { Message } from 'semantic-ui-react';
-import { u8aToString } from '@polkadot/util';
-
+import React from 'react';
+import { Tile } from "carbon-components-react";
 import { useSubstrate } from '../substrate-lib';
-import {
-  DataTable,
-  TableBody,
-  Table,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow
-} from "carbon-components-react";
+import { useDocuments } from "../hooks";
+import ListTable from './ListTable';
+import ListWarning from './ListWarning'
 
-export default function Main (props) {
+export default function Main(props) {
   const { organization } = props;
-  const { api } = useSubstrate();
-  const [documents, setDocuments] = useState([]);
+  const { api, keyring } = useSubstrate();
+  const [sharedDocuments] = useDocuments(api, keyring, organization)
 
-  useEffect(() => {
-    let unsub = null;
-
-    const getProducts = async () => {
-      unsub = await api.query.productRegistry.productsOfOrganization(organization, productIds => {
-        api.query.productRegistry.products.multi(productIds, products => {
-          const validProducts = products
-            .filter(product => !product.isNone)
-            .map(product => product.unwrap());
-          setDocuments(validProducts);
-        });
-      });
-    };
-
-    if (organization) {
-      getProducts();
-    }
-
-    return () => unsub && unsub();
-  }, [organization, api, setDocuments]);
-
-  if (!documents || documents.length === 0) {
-    return <Message warning style={{borderRadius: 0}}>
-      <Message.Header>No documents available for your organisation.</Message.Header>
-      <p>Add a document using the form on the left.</p>
-    </Message>;
-  }
-
-  const rows = documents.map(document => {
+  const rows = sharedDocuments.map(organization => {
     return {
-      id: u8aToString(document.id),
-      owner: document.owner.toString(),
+      id: organization.id,
+      title: organization.title,
+      owner: organization.owner,
+      name: organization.name
     };
   });
 
   const headers = [
     {
       key: 'id',
-      header: 'ID',
+      header: 'Id',
+    },
+    {
+      key: 'title',
+      header: 'Title',
     },
     {
       key: 'owner',
-      header: 'Organization',
+      header: 'Owner',
+    },
+    {
+      key: 'name',
+      header: 'Shared with',
     },
   ];
 
+  const hasDocuments = () => !sharedDocuments || sharedDocuments.length === 0;
+
   return (
-    <DataTable rows={rows} headers={headers} isSortable>
-      {({ rows, headers, getTableProps, getHeaderProps, getRowProps }) => (
-        <Table {...getTableProps()}>
-          <TableHead>
-            <TableRow>
-              {headers.map((header) => (
-                <TableHeader {...getHeaderProps({ header })}>
-                  {header.header}
-                </TableHeader>
-              ))}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows.map((row) => (
-              <TableRow {...getRowProps({ row })}>
-                {row.cells.map((cell) => (
-                  <TableCell key={cell.id}>{cell.value}</TableCell>
-                ))}
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      )}
-    </DataTable>
+    <Tile style={{ padding: 0, backgroundColor: "white" }}>
+      <div className="tile-header">Documents list</div>
+      {
+        hasDocuments() ?
+          <ListWarning message={"No documents to show here."}/> :
+          <ListTable rows={rows} headers={headers}/>
+      }
+    </Tile>
   );
 }

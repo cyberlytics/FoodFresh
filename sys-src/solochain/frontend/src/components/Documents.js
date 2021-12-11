@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Row, Column, Tile } from 'carbon-components-react';
-import AddDocument from './AddDocument';
-import DocumentList from './DocumentList';
 import OrganizationSelector from "./OrganizationSelector";
+import RegisterDocumentForm from './RegisterDocumentForm';
+import DocumentList from './DocumentList';
 
 export default function Main (props) {
   const { accountPair } = props;
@@ -15,7 +15,7 @@ export default function Main (props) {
           Documents
         </div>
         <div className="view-description">
-          Manage documents here.
+          With the Document module, you can claim ownership of a document and share it with other organizations.
         </div>
       </Tile>
       <br/><br/>
@@ -26,12 +26,15 @@ export default function Main (props) {
             setSelectedOrganization={setSelectedOrganization}
           />
           <br/>
-          <AddDocument accountPair={accountPair}
-                       organization={selectedOrganization}/>
+          <RegisterDocumentForm accountPair={accountPair}
+                                organization={selectedOrganization}
+          />
+          <br/>
         </Column>
         <Column sm={2} md={4} lg={6}>
           <DocumentList accountPair={accountPair}
-                        organization={selectedOrganization}/>
+                        organization={selectedOrganization}
+          />
         </Column>
       </Row>
     </div>

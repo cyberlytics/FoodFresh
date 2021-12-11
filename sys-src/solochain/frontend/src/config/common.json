@@ -33,6 +33,21 @@
       "props": "Option<Vec<ProductProperty>>",
       "registered": "Moment"
     },
+    "DocumentTitle": {
+      "name": "PropName",
+      "value": "PropValue"
+    },
+    "DocumentId": "Vec<u8>",
+    "DocumentOrganization": "Vec<u8>",
+    "DocumentFile": "Vec<u8>",
+    "Document": {
+      "id": "DocumentId",
+      "owner": "AccountId",
+      "title": "Option<Vec<DocumentTitle>>",
+      "organization": "DocumentOrganization",
+      "file": "DocumentFile",
+      "registered": "Moment"
+    },
     "Identifier": "Vec<u8>",
     "Decimal": "i32",
     "ShipmentId": "Identifier",
