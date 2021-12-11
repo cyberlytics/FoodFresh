@@ -2,14 +2,13 @@ import React, { useState } from 'react';
 import { TxButton } from '../substrate-lib/components';
 import { Tile, TextInput, Form } from 'carbon-components-react';
 
-
 export default function Main(props) {
   const [status, setStatus] = useState(null);
   const [formState, setFormState] = useState({addressTo: null});
   const {accountPair} = props;
 
-  const onChange = (e, d) => {
-    setFormState({addressTo: e.target.value});
+  const onChange = event => {
+    setFormState({addressTo: event.target.value});
   }
 
   const {addressTo} = formState;
@@ -17,15 +16,15 @@ export default function Main(props) {
   return (
     <Form>
       <Tile className="card" style={{maxWidth: '100%'}}>
-        <div className="card-header">
+        <div className="tile-header">
           Add member to organization
         </div>
-        <div className="card-content">
+        <div className="tile-content">
           <TextInput
-            fluid required
+            id="member"
             labelText="Member"
             type='text'
-            placeholder='Address'
+            placeholder='Enter address'
             state='addressTo'
             onChange={onChange}
           />

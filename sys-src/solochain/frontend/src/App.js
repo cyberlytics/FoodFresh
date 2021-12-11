@@ -20,7 +20,7 @@ export default function App () {
       <Switch>
         <Route path="/dashboard/organization" component={Organization}/>
         <Route path="/dashboard/member" component={Member}/>
-        <Route path="/dashboard/tracking" component={Tracking}/>
+        <Route path="/dashboard/trace" component={Tracking}/>
         <Route path="/dashboard/shipment" component={Shipment}/>
         <Route path="/dashboard/product" component={Product}/>
         <Route path="/dashboard/document" component={Document}/>

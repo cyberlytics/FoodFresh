@@ -8,8 +8,8 @@ export default function Main (props) {
   const [formState, setFormState] = useState({ orgName: null });
   const { accountPair } = props;
 
-  const onChange = (e, d) => {
-    setFormState({ orgName: e.target.value});
+  const onChange = event => {
+    setFormState({ orgName: event.target.value});
   }
 
   const { orgName } = formState;
@@ -17,12 +17,13 @@ export default function Main (props) {
   return (
     <Form>
       <Tile className="card" style={{ maxWidth: '100%' }}>
-        <div className="card-header">
+        <div className="tile-header">
           Create organization
         </div>
-        <div className="card-content">
+        <div className="tile-content">
           <TextInput
-            placeholder="Supply Chain Consortium"
+            id="orgName"
+            placeholder="Enter name"
             labelText="Name"
             state='orgName'
             onChange={onChange}
