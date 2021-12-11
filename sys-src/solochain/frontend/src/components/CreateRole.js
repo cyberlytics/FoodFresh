@@ -43,17 +43,17 @@ function Main (props) {
 
   useEffect(updatePalletRPCs, [api]);
 
-  const onPalletCallableParamChange = (event, data) => {
+  const onPalletCallableParamChange = event => {
     setFormState({palletRpc: event.selectedItem.id}); 
   };
 
 return (
   <Form>
   <Tile className="white-tile">
-    <div className="card-header">
+    <div className="tile-header">
       Create role
     </div>
-    <div className="card-content">
+    <div className="tile-content">
       <Dropdown
         id="default"
         titleText="Pallet"

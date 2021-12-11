@@ -1,36 +1,40 @@
-import React, { useEffect, useState } from 'react';
-import { hexToString } from '@polkadot/util';
-
-import { Tile, Dropdown, TextInput, Form } from 'carbon-components-react';
-
+import React, { useState } from 'react';
+import { useRoles } from "../hooks";
 import { useSubstrate } from '../substrate-lib';
 import { TxButton } from '../substrate-lib/components';
+import { Tile, Dropdown, TextInput, Form } from 'carbon-components-react';
 
 export default function Main(props) {
-  const {api} = useSubstrate();
-  const {accountPair} = props;
+  const { api } = useSubstrate();
+  const { accountPair } = props;
   const [status, setStatus] = useState(null);
-  const [roles, setRoles] = useState([]);
   const [formState, setFormState] = useState({
-    assignRevoke: null, address: null, pallet: null, permission: null
+    assignRevoke: null,
+    address: null,
+    pallet: null,
+    permission: null
   });
+  const [roles] = useRoles(api, accountPair)
+  const {assignRevoke, address, pallet, permission} = formState;
 
-  useEffect(() => {
-    let unsub = null;
+  const dropdownAssignRevoke = [
+    {text: 'Assign', id: 'assign', type: 'assignRevoke'},
+    {text: 'Revoke', id: 'revoke', type: 'assignRevoke'}
+  ];
 
-    const getRoles = async () => {
-      unsub = await api.query.rbac.roles(rawRoles => {
-        const roles = rawRoles
-          .map(r => r.toJSON())
-          .map(r => ({...r, pallet: hexToString(r.pallet)}));
-        setRoles(roles);
-      });
-    };
+  const dropdownRoles = roles
+    .map(r => ({text: `${r.pallet} : ${r.permission}`, id: `${r.pallet}:${r.permission}`, type: 'role'}))
+    .sort((a, b) => a.text.localeCompare(b.text));
 
-    if (accountPair) getRoles();
-    return () => unsub && unsub();
-  }, [accountPair, api, setRoles]);
+  let rsRole = null;
+  if (pallet && permission) {
+    rsRole = api.createType('Role', {
+      pallet: pallet,
+      permission: api.createType('Permission', permission)
+    });
+  }
 
+  /* Event handler */
   const onChange = (data) => {
     (data.selectedItem.type === "role") ?
       setFormState({
@@ -45,33 +49,16 @@ export default function Main(props) {
     setFormState({...formState, address: event.target.value})
   }
 
-  const dropdownAssignRevoke = [
-    {text: 'Assign', id: 'assign', type: 'assignRevoke'},
-    {text: 'Revoke', id: 'revoke', type: 'assignRevoke'}
-  ];
-
-  const dropdownRoles = roles
-    .map(r => ({text: `${r.pallet} : ${r.permission}`, id: `${r.pallet}:${r.permission}`, type: 'role'}))
-    .sort((a, b) => a.text.localeCompare(b.text));
-
-  const {assignRevoke, address, pallet, permission} = formState;
-
-  let rsRole = null;
-  if (pallet && permission) {
-    rsRole = api.createType('Role', {
-      pallet: pallet,
-      permission: api.createType('Permission', permission)
-    });
-  }
-
+  /* Render */
   return (
     <Form>
       <Tile className="white-tile">
-        <div className="card-header">
+        <div className="tile-header">
           Assign / Revoke role
         </div>
-        <div className="card-content">
+        <div className="tile-content">
           <Dropdown
+            id="assignment"
             titleText="Assign or Revoke?"
             label="Select an assignment"
             items={dropdownAssignRevoke}
@@ -80,6 +67,7 @@ export default function Main(props) {
           />
           <br/>
           <Dropdown
+            id="permission"
             titleText="Permission"
             label="Select a permission"
             items={dropdownRoles}
@@ -88,7 +76,8 @@ export default function Main(props) {
           />
           <br/>
           <TextInput
-            placeholder="Address"
+            id="to"
+            placeholder="Enter address"
             labelText="To"
             onChange={inputChange}
           />

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { TxButton } from '../substrate-lib/components';
-
 import { Tile, TextInput, Form } from 'carbon-components-react';
 
 export default function Main(props) {
@@ -8,7 +7,7 @@ export default function Main(props) {
   const [formState, setFormState] = useState({addressTo: null});
   const {accountPair} = props;
 
-  const onChange = (event) => {
+  const onChange = event => {
     setFormState({...formState, addressTo: event.target.value})
   };
 
@@ -17,12 +16,13 @@ export default function Main(props) {
   return (
     <Form>
       <Tile className="white-tile">
-        <div className="card-header">
+        <div className="tile-header">
           Add administrator
         </div>
-        <div className="card-content">
+        <div className="tile-content">
           <TextInput
-            placeholder="Address"
+            id="member"
+            placeholder="Enter address"
             labelText="Member"
             onChange={onChange}
           />

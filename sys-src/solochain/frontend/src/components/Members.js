@@ -1,10 +1,9 @@
 import React from 'react';
-
+import { Row, Column, Tile } from 'carbon-components-react';
 import CreateRole from './CreateRole';
 import AssignRevokeRole from './AssignRevokeRole';
 import AddSuperAdmin from './AddAdministrator';
 
-import { Row, Column, Tile } from 'carbon-components-react';
 
 export default function Main(props) {
   const {accountPair} = props;
@@ -16,12 +15,10 @@ export default function Main(props) {
           Members
         </div>
         <div className="view-description">
-          Manage participating members and their permissions.
+          With the Member module, you can manage the permissions of participating members.
         </div>
       </Tile>
-
       <br/><br/>
-
       <Row>
         <Column sm={1} md={2} lg={4}>
           <CreateRole accountPair={accountPair}/>
@@ -33,7 +30,6 @@ export default function Main(props) {
           <AddSuperAdmin accountPair={accountPair}/>
         </Column>
       </Row>
-
     </div>
   );
 }
