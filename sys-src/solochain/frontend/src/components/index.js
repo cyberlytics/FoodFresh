@@ -7,9 +7,9 @@ import Products from './Products';
 import Shipments from './Shipments';
 import TopNavMenu from './TopNavMenu';
 import Documents from './Documents';
-import Tracking from './Tracking';
+import Trace from './Trace';
 
 export {
   AccountSelector, BlockNumber, Documents, Members, NodeInfo, Organizations, Products, Shipments,
-  TopNavMenu, Tracking,
+  TopNavMenu, Trace
 };

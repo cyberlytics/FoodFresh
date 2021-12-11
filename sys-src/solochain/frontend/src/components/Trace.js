@@ -13,27 +13,33 @@ export default function Main(props) {
     <div>
       <Tile className="white-tile">
         <div className="view-title">
-          Tracking
+          Traces
         </div>
         <div className="view-description">
-          Track shipments here.
+          With the Trace module, you can trace the shipments of your products.
         </div>
       </Tile>
       <br/><br/>
-
       <Row>
         <Column sm={2} md={4} lg={6}>
           <OrganizationSelector accountPair={accountPair}
-                                setSelectedOrganization={setSelectedOrganization}/>
+                                setSelectedOrganization={setSelectedOrganization}
+          />
         </Column>
         <Column sm={2} md={4} lg={6}>
           <ShipmentSelection accountPair={accountPair}
                              organization={selectedOrganization}
-                             setSelectedShipment={setSelectedShipment}/>
+                             setSelectedShipment={setSelectedShipment}
+          />
         </Column>
       </Row>
+      <br/><br/>
       <Row>
-        <ShipmentDetails accountPair={accountPair} shipmentId={selectedShipment}/>
+        <Column>
+          <ShipmentDetails accountPair={accountPair}
+                           shipmentId={selectedShipment}
+          />
+        </Column>
       </Row>
       <br/>
     </div>
