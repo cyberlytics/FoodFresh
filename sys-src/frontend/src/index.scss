@@ -1,0 +1,145 @@
+@import 'carbon-components/scss/globals/scss/styles.scss';
+@import '@carbon/colors/scss/colors';
+
+@font-face {
+  font-family: 'IBMPlexSans';
+  src: local('IBMPlexSans'), url(./fonts/IBMPlexSans-Regular.ttf) format('woff');
+}
+
+* {
+  font-family: 'IBMPlexSans' !important;
+}
+
+i {
+  font-family: 'Icons' !important;
+}
+
+p {
+  font-size: 14px;
+}
+
+.status-message {
+  overflow-wrap: break-word;
+  font-size: 14px;
+  padding: 0 16px 8px 16px;
+}
+
+.tile-header {
+  padding: 16px;
+  font-size: 16px;
+  font-weight: 600;
+  color: black;
+}
+
+.tile-content {
+  padding: 16px;
+  font-size: 1.28571em;
+  font-weight: 700;
+  margin-top: -0.21425em;
+}
+
+.shipping-header {
+  font-size: 16px;
+  font-weight: 600;
+  padding-bottom: 16px;
+  color: black;
+}
+
+.shipping-title {
+  font-size: 14px;
+  font-weight: 600;
+  padding-bottom: 10px;
+  color: black;
+}
+
+.border-bottom {
+  border-bottom: 1px solid #f2f2f2;
+}
+
+.card-bottom {
+  padding: 16px;
+  font-size: 1em;
+  color: black;
+}
+
+.card {
+  padding: 0;
+  margin: auto;
+  max-width: 290px;
+  background-color: white;
+}
+
+.white-tile {
+  padding: 0;
+  margin: auto;
+  background-color: white;
+}
+
+.view-title {
+  padding: 16px;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.view-description {
+  padding-bottom: 16px;
+  padding-left: 16px;
+  font-size: 14px;
+  font-weight: 300;
+  color: black;
+}
+
+.chaininfo-header {
+  padding: 16px;
+  font-size: 14px;
+  font-weight: 600;
+  color: black;
+}
+
+.chaininfo-content {
+  padding: 16px;
+  font-size: 28px;
+  font-weight: 300;
+}
+
+.bx--header__nav {
+  display: block;
+}
+
+a.bx--header__menu-item:hover {
+  background-color: #d6d6d6 !important;
+}
+
+body {
+  min-width: 630px;
+  overflow: scroll;
+  background-color: #f6f6f6;
+}
+
+.nav-right-bar {
+  margin-top: 4px;
+  width: 240px;
+}
+
+.nav-header {
+  background-color: white;
+  border-bottom: 1px solid #d1d1d1;
+  position: relative;
+}
+
+@media only screen and (max-width: 750px) {
+  .nav-right-bar {
+    margin-left: 20px;
+  }
+}
+
+.row-title {
+  font-size: 20px;
+  font-weight: 400;
+}
+
+@media only screen and (max-width: 66rem) {
+  .row-title {
+    margin: 0;
+  }
+}
