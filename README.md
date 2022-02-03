@@ -10,12 +10,15 @@
 </div>
 
 - [1. Introduction](#1-introduction)
-- [2. Prerequesites](#2-prerequesites)
-- [3. Building](#3-building)
-  - [3.1. Presentation Tier](#31-presentation-tier)
-  - [3.2. Application Tier](#32-application-tier)
-  - [3.3. Relay Tier](#33-relay-tier)
-- [4. Testing](#4-testing)
+- [2. Project Layout](#2-project-structure)
+- [3. Prerequesites](#3-prerequesites)
+- [4. Building](#4-build)
+  - [4.1. Relay Tier](#41-relay-tier)
+  - [4.2. Application Tier](#42-application-tier)
+  - [4.3. Presentation Tier](#43-presentation-tier)
+- [5. Testing](#5-testing)
+  - [5.1. Presentation Tier](#51-unit-testing)
+  - [5.2. Presentation Tier](#52-xcm-testing)
 
 # 1. Introduction
 
@@ -23,7 +26,7 @@ ChainFresh is a decentralized supply chain consortium that supports interoperabi
 heterogeneous, blockchain-enabled supply chain network. It enables divergent types of consensus systems to interoperate 
 in a decentralized federation, allowing public and private blockchains to have controllable access to each other.
 
-# Project Layout
+# 2. Project Structure
 
 This section outlines the project structure.
 
@@ -45,13 +48,10 @@ This section outlines the project structure.
    │  │   ├── utils           // Utilities
    │  │   ├── views           // UI views
    │  │   └── ... 
-   │  └── ...                 // 
-   ├── solochain              // Standalone blockchain
-   │  ├── chain               // The actual "blockchain"
-   │  └── scripts             // Useful development scripts
-   └── multichain             // Scaleable blockchain relay
-      ├── parachain-collator  // Parachain code
-      └── rococo_local        // Relay chain specification file       
+   │  └── ...                 
+   └── multichain             
+      ├── parachain-collator  // Collator node
+      └── rococo_local        // Relay chain specification file
 ```
 
 # 3. Prerequesites
@@ -207,7 +207,7 @@ conditions, the collator node architecture is extended with an OCW subsystem.
 Shipment events are placed in a queue that is monitored by an OCW. 
 When events appear in this queue, the OCW sends them to an off-chain service via a REST API.
 
-- Run the [Off-Chain Worker (OCW) listener](sys-src/solochain/scripts/ocw) to receive OCW notifications.
+- Run the Off-Chain Worker (OCW) listener to receive OCW notifications.
 
   ```bash
   cd offchain
