@@ -17,8 +17,8 @@
   - [4.2. Application Tier](#42-application-tier)
   - [4.3. Presentation Tier](#43-presentation-tier)
 - [5. Testing](#5-testing)
-  - [5.1. Presentation Tier](#51-unit-testing)
-  - [5.2. Presentation Tier](#52-xcm-testing)
+  - [5.1. Unit tests](#51-unit-testing)
+  - [5.2. XCM tests](#52-xcm-testing)
 
 # 1. Introduction
 
