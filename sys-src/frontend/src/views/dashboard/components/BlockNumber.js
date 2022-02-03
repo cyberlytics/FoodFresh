@@ -1,6 +1,6 @@
 /**
  * BlockNumber
- * Renders the best derived blocknumber for current and finalized blocks.
+ * Renders the derived block number for current and finalized blocks.
  */
 
 import React, { useState } from 'react';

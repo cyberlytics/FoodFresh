@@ -1,6 +1,13 @@
 import { useEffect } from 'react';
 import { stringToHex, u8aToString } from '@polkadot/util';
 
+/**
+ * Provide registered documents.
+ * @param api Substrate api
+ * @param keyring Available keyring
+ * @param organization Organization owning the documents
+ * @param setDocuments Documents setter
+ */
 const useDocuments = (api, keyring, organization, setDocuments) => {
 
   useEffect(() => {

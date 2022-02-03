@@ -1,7 +1,11 @@
 import { useEffect } from "react";
 
+/**
+ * Set the initial address.
+ * @param props Properties
+ * @param initialAddress Initial address to use
+ */
 const useInitialAddress = (props, initialAddress) => {
-  // Set the initial address
   useEffect(() => {
     props.sendAddressData(initialAddress);
   }, [props, initialAddress]);

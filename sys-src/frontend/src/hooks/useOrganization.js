@@ -1,8 +1,14 @@
 import { useEffect } from 'react';
 import { u8aToString } from '@polkadot/util';
 
+/**
+ * Provide organizations for organization selector.
+ * @param api Substrate api
+ * @param accountPair Available account pair
+ * @param setOrganizations Organizations setter
+ * @param setSelectedOrganization Set selected organization
+ */
 const useOrganization = (api, accountPair, setOrganizations, setSelectedOrganization) => {
-
   useEffect(() => {
     let unsub1 = null;
     let unsub2 = null;
@@ -23,7 +29,7 @@ const useOrganization = (api, accountPair, setOrganizations, setSelectedOrganiza
         const strData = rawData.map(r => r.toString());
 
         if (strData.includes(addr)) {
-          // Current account is an org
+          // Current account is an organization
           const nonce = await api.query.palletDid.attributeNonce([addr, 'Org']);
           const attrHash = api.registry.createType('(AccountId, Text, u64)', [addr, 'Org', nonce.subn(1)]).hash;
           const orgAttr = await api.query.palletDid.attributeOf([addr, attrHash]);

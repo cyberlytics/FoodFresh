@@ -121,6 +121,7 @@ const useEventsOfShipment = (api, shipmentId, setEventIndices) => {
   }, [api.query.productTracking, shipmentId]);
 };
 
+// Provide on-chain registered events for a selected shipment
 const useAllEventsOfShipment = (api, eventIndices, setEvents) => {
   useEffect(() => {
     let unsubscribe;

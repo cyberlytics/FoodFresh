@@ -1,6 +1,12 @@
 import { useEffect } from "react";
 import { hexToString } from "@polkadot/util";
 
+/**
+ * Provide available roles.
+ * @param api Substrate api
+ * @param accountPair Available account pair
+ * @param setRoles Roles setter
+ */
 const useRoles = (api, accountPair, setRoles) => {
 
   useEffect(() => {

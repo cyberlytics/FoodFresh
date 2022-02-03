@@ -1,6 +1,6 @@
 /**
  * Organization
- *
+ * The organizations view.
  */
 
 import React, { useState, createRef } from 'react';

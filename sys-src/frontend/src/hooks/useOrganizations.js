@@ -1,8 +1,13 @@
 import { useEffect } from 'react';
 import { u8aToString } from '@polkadot/util';
 
+/**
+ * Provide organization names instead of account names.
+ * @param api Substrate api
+ * @param accountPair Available account pair
+ * @param setOrganizations Organizations setter
+ */
 const useOrganizations = (api, accountPair, setOrganizations) => {
-
   useEffect(() => {
     let unsub1 = null;
     let unsub2 = null;

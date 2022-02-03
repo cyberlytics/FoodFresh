@@ -1,7 +1,11 @@
 import { useEffect } from 'react';
 
+/**
+ * Get info about the connected blockchain.
+ * @param api Substrate api
+ * @param setNodeInfo Node info setter
+ */
 const useNodeInfo = (api, setNodeInfo) => {
-
   useEffect(() => {
     const getNodeInfo = async () => {
       try {

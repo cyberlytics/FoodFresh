@@ -85,18 +85,16 @@ const ShipmentDetailsComponent = ({ accountPair, shipmentId }) => {
                   <p>{shipment.owner.toString()}</p>
                 </div>
                 <div style={{paddingBottom: "16px"}}>
+                  <div className="shipping-title">Receiver:</div>
+                  <p>{shipment.receiver.toString()}</p>
+                </div>
+                <div style={{paddingBottom: "16px"}}>
                   <div className="shipping-title">Registered:</div>
                   <p>{new Date(shipment.registered.toNumber()).toLocaleString()}</p>
                 </div>
                 <div style={{paddingBottom: "16px"}}>
                   <div className="shipping-title">Status:</div>
                   <p>{shipment.status.toString()}</p>
-                </div>
-                <div style={{paddingBottom: "16px"}}>
-                  <div className="shipping-title">Delivered:</div>
-                  <p>{shipment.delivered.value.toString().length > 0
-                    ? new Date(shipment.delivered.value.toNumber()).toLocaleString() : ''
-                  }</p>
                 </div>
               </div>
             </Column>

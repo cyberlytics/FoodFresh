@@ -1,6 +1,6 @@
 /**
  * DefaultSkeleton
- *
+ * Displayed when the web frontend is not connected to any blockchain.
  */
 
 import React from 'react';

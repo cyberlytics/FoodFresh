@@ -1,5 +1,11 @@
 import { useEffect } from 'react';
 
+/**
+ * Provide registered products under the name of an organization.
+ * @param api Substrate api
+ * @param organization Product owning organization
+ * @param setProducts Product setter
+ */
 const useProducts = (api, organization, setProducts) => {
 
   useEffect(() => {

@@ -1,6 +1,6 @@
 /**
  * Product
- *
+ * The products view.
  */
 
 import React, { useState, createRef } from 'react';

@@ -1,6 +1,6 @@
 /**
  * Shipment
- *
+ * The shipments view.
  */
 
 import React, { useState, createRef } from 'react';

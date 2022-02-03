@@ -1,6 +1,6 @@
 /**
  * Member
- *
+ * The members view
  */
 
 import React, { useState, createRef } from 'react';

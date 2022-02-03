@@ -1,6 +1,6 @@
 /**
  * Trace
- *
+ * The traces view.
  */
 
 import React, { useState, createRef } from 'react';

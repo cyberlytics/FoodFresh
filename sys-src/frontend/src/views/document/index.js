@@ -1,6 +1,6 @@
 /**
  * Document
- *
+ * The documents view.
  */
 
 import React, { useState, createRef } from 'react';

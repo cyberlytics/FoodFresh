@@ -119,7 +119,7 @@ function RegisterShipmentFormComponent({ accountPair, organization }) {
             attrs={{
               palletRpc: 'productTracking',
               callable: 'registerShipment',
-              inputParams: [state.shipmentId, state.owner, [state.productId1 || '', state.productId2 || ''].join(',')],
+              inputParams: [state.shipmentId, state.owner, state.receiver, [state.productId1 || '', state.productId2 || ''].join(',')],
               paramFields: paramFields
             }}
           />
