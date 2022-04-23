@@ -48,24 +48,26 @@
     
 \begin{document}
 
-\title{ChainFresh: Heterogeneous Blockchain Consortium for a Food Supply Chain Network}
+\title{FoodFresh: Multi-Chain Design for a Food Supply Chain Network}
 
-\author{\IEEEauthorblockN{Philipp Stangl}
-\IEEEauthorblockA{\textit{OTH Amberg-Weiden}\\
-Amberg, Germany \\
-p.stangl1@oth-aw.de}
+\begin{comment}
+\author{\IEEEauthorblockN{~}
+\IEEEauthorblockA{\textit{~}\\
+~ \\
+~}
 \and
-\IEEEauthorblockN{Christoph P. Neumann}
-\IEEEauthorblockA{\textit{OTH Amberg-Weiden}\\
-Nürnberg, Germany \\
-c.neumann@oth-aw.de}
+\IEEEauthorblockN{~}
+\IEEEauthorblockA{\textit{~}\\
+~ \\
+~}
 }
+\end{comment}
 
 \maketitle
 
 \begin{abstract}
 We consider the problem of supply chain data visibility in a blockchain-enabled supply chain network. Existing methods typically record transactions happening in a supply chain on a single blockchain and are limited in their ability to deal with different levels of data visibility.
-To address this limitation, we present ChainFresh - a heterogeneous blockchain consortium were organizations store immutable data on their own blockchains. A decentralized hub coordinates the cross-chain exchange of digital assets among the heterogenous blockchains.  
+To address this limitation, we present FoodFresh - a multi-chain consortium were organizations store immutable data on their own blockchains. A decentralized hub coordinates the cross-chain exchange of digital assets among the heterogenous blockchains.  
 Mechanisms for enabling blockchain interoperability help preserve the benefits of independent sovereign blockchains while allowing for sharing of data across blockchain boundaries.
 \end{abstract}
 
@@ -78,7 +80,7 @@ The food industry comprises companies dedicated to manufacturing and processing 
 
 Blockchain technology is presented as a way to reduce fraud, increase supply chain visibility, and provide supply chain optimization. Current applications of blockchain technology in food supply chain management (e.g., IBM Food Trust) rely mainly on a single distributed ledger. The implications on supply chain networks are twofold: (i) organizations participating in multiple supply chains must share their data on multiple blockchains, and (ii) participants may see information originally not intended for them because all participants can view every transaction on a distributed ledger. 
 
-In this paper, we propose ChainFresh - a multi-chain approach for supply chain networks, allowing organizations to store immutable data on their own blockchain. A decentralized hub coordinates the cross-chain communication among the heterogenous blockchains.  The hub further ensures that all parties comply to the overarching rules of the consortium. 
+In this paper, we propose FoodFresh - a multi-chain approach for supply chain networks, allowing organizations to store immutable data on their own blockchain. A decentralized hub coordinates the cross-chain communication among the heterogenous blockchains.  The hub further ensures that all parties comply to the overarching rules of the consortium. 
 
 The remainder of the paper is organized as follows: in Section~\ref{s:related_work}, a selection of related work is presented. Subsequently, an overview of the relevant technology is given in Section~\ref{s:background}. Next, Section~\ref{s:chainfresh_approach} discusses our proposal with the design rationale. We conclude the paper in Section~\ref{s:conclusion}, followed by the references at the end. 
 
@@ -110,19 +112,19 @@ There are three different types of blockchain systems \cite{zheng2017overview}. 
 \subsection{Blockchain Interoperability} \label{s:blockchain_interoperability}
 Blockchain interoperability involves the ability of independent distributed ledger networks to communicate with each other. Various approaches have been established to provide blockchain interoperability, resulting in a highly fragmented market \cite{belchior2021survey}.   were the first to conduct a systematic literature review on blockchain interoperability solutions. The Blockchain Interoperability Framework \citeauthor{belchior2021survey} categorizes interoperability solutions into three categories: interoperability across public blockchains (public connectors),  independent blockchains that interoperate among each other ( blockchains of blockchains), and finally approaches that neither fit into the public connectors nor blockchains of blockchains category (hybrid connector). 
 
-\section{ChainFresh} \label{s:chainFresh}
+\section{FoodFresh} \label{s:chainFresh}
 In this section, we describe a consortium blockchain for a food supply chain network for the purpose of interoperability and controlled transparency. Section~\ref{s:chainfresh_approach}, introduces the approach. The three tiers of the system architecture are described in the following sections: the presentation tier in Section~\ref{s:presentation_tier},  the application tier in Section~\ref{s:application_tier}, and the relay tier in Section~\ref{s:relay_tier}.
 
-\subsection{ChainFresh Approach} \label{s:chainfresh_approach}
-The ChainFresh approach provides an implementation of the multi-chain approach (Section~ \ref{s:related_work}). The blockchain consortium comprises a multi-chain ecosystem for organizations. Each organization is allowed to participate in the consensus process. 
+\subsection{FoodFresh Approach} \label{s:chainfresh_approach}
+The FoodFresh approach provides an implementation of the multi-chain approach (Section~ \ref{s:related_work}). The blockchain consortium comprises a multi-chain ecosystem for organizations. Each organization is allowed to participate in the consensus process. 
 A permanent and shared record of food system data connects participants across the food supply chain network. This is done through the use of a main blockchain, called relay chain. The sole purpose of the relay chain is to coordinate and share appropriate data and ensure all parties are complying to overarching rules. Each organziation can setup and manage their own private blockchain, which keeps full control over the data to themselves. It also allows them to share immutable and accurate data easily to other participants in their supply network. This approach allows for the addition or removal of individual players from the ecosystem with minimal impact.
 
 \subsection{System Architecture} \label{s:system_architecture}
-ChainFresh as a distributed system is a composition of three tiers. 
+FoodFresh as a distributed system is a composition of three tiers. 
 This section will outline each of the three tiers. The presentation tier in Section~\ref{s:presentation_tier}, the application tier in Section~\ref{s:application_tier}, and finally the relay tier in Section~\ref{s:relay_tier}. Fig.~\ref{fig:system_architecture} depicts the system architecture for two interoperating supply chain organizations. 
 
 \subsubsection{Presentation Tier} \label{s:presentation_tier}
-To provide the user with convenient access to the ChainFresh system, the presentation tier is responsible for interacting with the application tier through a websocket connection. 
+To provide the user with convenient access to the FoodFresh system, the presentation tier is responsible for interacting with the application tier through a websocket connection. 
 Any websocket-capable client or device can communicate with the endpoints exposed by the application tier. The user interacts with a \ac{gui} to manage the permissions of participating members, register shipments and products, and trace shipments along the supply chain. A browser extension is required to manage blockchain accounts and to sign transactions within those accounts.
 
 \subsubsection{Application Tier} \label{s:application_tier}
@@ -150,18 +152,18 @@ An integral part of cross-chain communication is the establishment of a cross-ch
 
 %Development
 \subsection{Substrate Framework} \label{substrate_framework}
-ChainFresh is built with substrate \cite{substrateio}, a modular framework for building blockchains. A nontechnical reason for using substrate is its flexibility. Organizations must be able to adapt their blockchain system to meet supply chain compliance requirements of regulatory bodies. Regulations happen frequently, especially in food supply chains, as shown in Section~\ref{s:fscn}. Due to the modular nature of substrate-based blockchains, developers have the necessary freedom to swap or add modules to their blockchain runtime.
+FoodFresh is built with substrate \cite{substrateio}, a modular framework for building blockchains. A nontechnical reason for using substrate is its flexibility. Organizations must be able to adapt their blockchain system to meet supply chain compliance requirements of regulatory bodies. Regulations happen frequently, especially in food supply chains, as shown in Section~\ref{s:fscn}. Due to the modular nature of substrate-based blockchains, developers have the necessary freedom to swap or add modules to their blockchain runtime.
 
 Technical reasons include the chosen programming language, the software design, and the off-chain abilities. Substrate is implemented in the programming language Rust, which aims to provide performance (comparable to C++), reliability, and better means for productivity. In terms of reliability, Rust manages resources (including memory, files, network, and thread) and avoids problems such as resource leaks or data races. Finally, for productivity, Rust provides \ac{ide} support and type inspections. Furthermore, substrate is generic by design, meaning transactions are abstracted to extrinsics (things that happen outside the chain) and intrinsics (things that happen inside the chain). Transactions are stored as binary large objects. As a result, users can transfer and store any type of data on the blockchain. 
 
-Nonetheless, with ChainFresh as a permissioned blockchain, concerns about off-chain processes need to be raised. For instance, \citeauthor{HELLIAR2020102136} have posited that ``off-chain processes may become a major barrier for permissioned blockchains'' \cite{HELLIAR2020102136}. Using substrate, off-chain data can be queried or processed before it is included in the on-chain state through \ac{ocw}, a collator node subsystem that allows for the execution of long-running and possibly nondeterministic tasks. Moreover, an \ac{ocw} does not influence the block production time.
+Nonetheless, with FoodFresh as a permissioned blockchain, concerns about off-chain processes need to be raised. For instance, \citeauthor{HELLIAR2020102136} have posited that ``off-chain processes may become a major barrier for permissioned blockchains'' \cite{HELLIAR2020102136}. Using substrate, off-chain data can be queried or processed before it is included in the on-chain state through \ac{ocw}, a collator node subsystem that allows for the execution of long-running and possibly nondeterministic tasks. Moreover, an \ac{ocw} does not influence the block production time.
 
 \subsection{Deployment} \label{s:deployment}
-ChainFresh requires validator nodes for  the relay chain and collator nodes for the parachains to be set up by the organizations participating in a supply chain network. Nodes can be deployed locally or remotely via a cloud service provider such as Amazon Web Services. 
-Before parachains can participate in cross-chain communication, they need to be registered on the relay chain. The following rule is defined in the Collator Protocol \cite{collatorProtocol}, which implements the network protocol for the Collator-to-Validator networking: To accept $n$ parachain connections, $n + 1$ validator nodes need to run on the relay chain. For the ChainFresh prototype, two relay chain nodes are started to connect one parachain node. Further, the relay chain needs to obtain the hex-encoded parachain's genesis state (exported from a collator node) and the WebAssembly runtime validation function to validate parablocks.
+FoodFresh requires validator nodes for  the relay chain and collator nodes for the parachains to be set up by the organizations participating in a supply chain network. Nodes can be deployed locally or remotely via a cloud service provider such as Amazon Web Services. 
+Before parachains can participate in cross-chain communication, they need to be registered on the relay chain. The following rule is defined in the Collator Protocol \cite{collatorProtocol}, which implements the network protocol for the Collator-to-Validator networking: To accept $n$ parachain connections, $n + 1$ validator nodes need to run on the relay chain. For the FoodFresh prototype, two relay chain nodes are started to connect one parachain node. Further, the relay chain needs to obtain the hex-encoded parachain's genesis state (exported from a collator node) and the WebAssembly runtime validation function to validate parablocks.
 
 \section{Conclusion and Future Work} \label{s:conclusion}
-Developing long-term and increasingly collaborative relationships among supply chain participants requires advanced technological solutions to retain a competitive edge. Blockchain is presented as a promising technology that might increase supply chain visibility and improve efficiency.  We have presented ChainFresh - a heterogeneous blockchain consortium for a food supply chain network. The design approach used for ChainFresh may benefit more than just the supply chain industry. In essence, it could apply to any network that requires the distribution or transfer of sensitive data. Future scope may be to apply the approach to other industries. 
+Developing long-term and increasingly collaborative relationships among supply chain participants requires advanced technological solutions to retain a competitive edge. Blockchain is presented as a promising technology that might increase supply chain visibility and improve efficiency.  We have presented FoodFresh - a multi-chain consortium for a food supply chain network. The design approach used for FoodFresh may benefit more than just the supply chain industry. In essence, it could apply to any network that requires the distribution or transfer of sensitive data. Future scope may be to apply the approach to other industries. 
 
 % References
 \renewcommand*{\UrlFont}{\rmfamily}
