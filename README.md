@@ -1,10 +1,10 @@
 <div align="center">
 
-<img src="sys-doc/assets/chainfresh.png" width="460">
+// <img src="sys-doc/assets/chainfresh.png" width="460">
 
 <br />
 
-[![License](https://img.shields.io/github/license/cyberlytics/ChainFresh?color=green)](https://github.com/cyberlytics/ChainFresh/blob/main/LICENSE)
+[![License](https://img.shields.io/github/license/cyberlytics/FoodFresh?color=green)](https://github.com/cyberlytics/FoodFresh/blob/main/LICENSE)
 [![Substrate version](https://img.shields.io/badge/Substrate-2.0.0-brightgreen?logo=Parity%20Substrate)](https://substrate.io/)
 
 </div>
@@ -22,7 +22,7 @@
 
 # 1. Introduction
 
-ChainFresh is a decentralized supply chain consortium that supports interoperability and controlled transparency in a 
+FoodFresh is a decentralized supply chain consortium that supports interoperability and controlled transparency in a 
 heterogeneous, blockchain-enabled supply chain network. It enables divergent types of consensus systems to interoperate 
 in a decentralized federation, allowing public and private blockchains to have controllable access to each other.
 
@@ -236,7 +236,7 @@ application tier nodes. The capabilities that the client library expose are impl
 
 # 5. Testing
 
-The testing strategy for ChainFresh is twofold:
+The testing strategy for FoodFresh is twofold:
 
 ### 5.1 Unit testing 
 
