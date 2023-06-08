@@ -1,9 +1,5 @@
 <div align="center">
 
-// <img src="sys-doc/assets/chainfresh.png" width="460">
-
-<br />
-
 [![License](https://img.shields.io/github/license/cyberlytics/FoodFresh?color=green)](https://github.com/cyberlytics/FoodFresh/blob/main/LICENSE)
 [![Substrate version](https://img.shields.io/badge/Substrate-2.0.0-brightgreen?logo=Parity%20Substrate)](https://substrate.io/)
 
